@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>nobroker_test_application</groupId>
+	<artifactId>com.test.app.nobroker</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<!--  Java compatibility  -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<surefire.version>3.0.0-M8</surefire.version>
+	</properties>
+	<dependencies>
+		<!--  Cucumber  -->
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-java</artifactId>
+			<version>7.27.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.cucumber</groupId>
+			<artifactId>cucumber-testng</artifactId>
+			<version>7.27.2</version>
+		</dependency>
+		<!--  Selenium: upgraded to help with CDP compatibility  -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>4.35.0</version>
+		</dependency>
+		<!--  TestNG  -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>7.11.0</version>
+			<scope>test</scope>
+		</dependency>
+		<!--  ExtentReports  -->
+		<dependency>
+			<groupId>com.aventstack</groupId>
+			<artifactId>extentreports</artifactId>
+			<version>5.1.2</version>
+		</dependency>
+		<!--  Apache POI  -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>5.4.1</version>
+		</dependency>
+		<!--  WebDriverManager (you already had 5.7.0 — kept)  -->
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>5.7.0</version>
+		</dependency>
+		<!--  Optional: Use this if you need dependency injection in Cucumber
+		steps  -->
+		<!-- 
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-picocontainer</artifactId>
+      <version>7.27.2</version>
+    </dependency>
+     -->
+	</dependencies>
+	<build>
+		<plugins>
+			<!--  Compiler plugin  -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.11.0</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+			<!--  Surefire plugin to run TestNG / cucumber-testng runner classes  -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${surefire.version}</version>
+				<configuration>
+					<!--  If your TestNG runner is a class (e.g.,
+					runner.OrderedTestRunner), use -Dtest to run it.
+               Otherwise surefire will pick up testng.xml or TestNG annotated tests.  -->
+					<forkCount>1</forkCount>
+					<reuseForks>true</reuseForks>
+					<!--  show full stacktraces in console  -->
+					<trimStackTrace>false</trimStackTrace>
+					<!--  If you use a TestNG XML suite file (recommended when
+					using cucumber-testng),
+               you can specify it here (uncomment and set path if used)
+          <suiteXmlFiles>
+            <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+          </suiteXmlFiles>
+           -->
+				</configuration>
+			</plugin>
+			<!--  (Optional) Maven Failsafe if you want integration-style test
+			runs  -->
+			<!-- 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>3.0.0-M8</version>
+      </plugin>
+       -->
+		</plugins>
+	</build>
+</project>
